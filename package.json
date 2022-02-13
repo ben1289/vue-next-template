@@ -8,12 +8,15 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^0.25.0",
+    "js-cookie": "^3.0.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
+    "@types/js-cookie": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "@vitejs/plugin-vue": "^2.0.0",
