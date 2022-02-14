@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "json-server": "json-server -w ./src/mock/db.json -p 2000"
   },
   "dependencies": {
     "axios": "^0.25.0",
