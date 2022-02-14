@@ -12,4 +12,13 @@ export default defineConfig({
       views: '/src/views',
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:2000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });
