@@ -33,7 +33,7 @@ module.exports = {
           ['components', './src/components'],
           ['views', './src/views'],
         ],
-        extensions: ['.*'],
+        extensions: ['.ts'],
       },
     },
   },
