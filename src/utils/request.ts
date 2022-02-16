@@ -28,7 +28,7 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   (res) => {
-    const { code } = res.data.result;
+    const { code } = res.data.status;
     if (code === 401) {
       // TODO: 提示登录过期，可选择跳转登录页
       return Promise.reject(
@@ -37,12 +37,12 @@ service.interceptors.response.use(
     }
     if (code === 500) {
       // TODO: 提示错误信息
-      const msg = res.data.result.msg || '服务器错误';
+      const msg = res.data.status.msg || '服务器错误';
       return Promise.reject(new Error(msg));
     }
     if (code !== 200) {
       // TODO: 提示未知错误
-      const msg = res.data.result.msg || '未知错误';
+      const msg = res.data.status.msg || '未知错误';
       return Promise.reject(new Error(msg));
     }
     return res.data;
