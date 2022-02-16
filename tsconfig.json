@@ -21,6 +21,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     ".eslintrc.js",
-    "vite.config.ts"
+    "vite.config.ts",
+    "postcss.config.js",
+    "tailwind.config.js"
   ]
 }
