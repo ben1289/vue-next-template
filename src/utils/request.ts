@@ -6,6 +6,35 @@ const service = axios.create({
   timeout: 10000,
 });
 
+function statusCodeHandle(code: number, msg: string): void {
+  if (code === 401) {
+    window.$dialog.warning({
+      title: '提示',
+      content: '登录状态已过期，您可以继续留在该页面，或者重新登录',
+      positiveText: '重新登录',
+      negativeText: '留在当前',
+      onPositiveClick() {
+        // TODO: 跳转登录页
+      },
+    });
+    throw new Error('无效的会话，或者会话已过期，请重新登录。');
+  } else if (code === 500) {
+    window.$message.error(msg || '服务器错误');
+    throw new Error(msg);
+  } else if (code !== 200) {
+    if (msg.includes('timeout')) {
+      window.$message.error('网络连接超时');
+    } else if (msg.includes('Network Error')) {
+      window.$message.error('网络连接错误');
+    } else if (msg.includes('Request failed with status code')) {
+      window.$message.error(`网络请求${msg.substring(msg.length - 3)}异常`);
+    } else {
+      window.$message.error(msg || '未知错误');
+    }
+    throw new Error(msg);
+  }
+}
+
 /**
  * request拦截器
  */
@@ -28,35 +57,22 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   (res) => {
-    const { code } = res.data.status;
-    if (code === 401) {
-      // TODO: 提示登录过期，可选择跳转登录页
-      return Promise.reject(
-        new Error('无效的会话，或者会话已过期，请重新登录。')
-      );
+    const { code, msg } = res.data.status;
+    try {
+      statusCodeHandle(code, msg);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
     }
-    if (code === 500) {
-      // TODO: 提示错误信息
-      const msg = res.data.status.msg || '服务器错误';
-      return Promise.reject(new Error(msg));
-    }
-    if (code !== 200) {
-      // TODO: 提示未知错误
-      const msg = res.data.status.msg || '未知错误';
-      return Promise.reject(new Error(msg));
-    }
-    return res.data;
   },
   (error) => {
-    const { message } = error;
-    if (message.includes('timeout')) {
-      // TODO: 提示 网络超时
-    } else if (message.includes('Network Error')) {
-      // TODO: 提示 网络连接错误
-    } else if (message.includes('Request failed with status code')) {
-      // TODO: 提示 `系统接口${message.substring(message.length - 3)}异常`
+    const { status: code, message: msg } = error;
+    try {
+      statusCodeHandle(code, msg);
+      return Promise.reject(error);
+    } catch (err) {
+      return Promise.reject(err);
     }
-    return Promise.reject(error);
   }
 );
 
