@@ -6,6 +6,11 @@ const service = axios.create({
   timeout: 10000,
 });
 
+/**
+ * 处理状态码
+ * @param code 状态码
+ * @param msg 提示消息
+ */
 function statusCodeHandle(code: number, msg: string): void {
   if (code === 401) {
     window.$dialog.warning({
