@@ -18,7 +18,7 @@ import {
   NNotificationProvider,
   NMessageProvider,
 } from 'naive-ui';
-import NaiveProviderContent from './components';
+import NaiveProviderContent from './components/NaiveProviderContent.vue';
 </script>
 
 <style scoped></style>
