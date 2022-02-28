@@ -18,6 +18,7 @@ function statusCodeHandle(code: number, msg: string): void {
       content: '登录状态已过期，您可以继续留在该页面，或者重新登录',
       positiveText: '重新登录',
       negativeText: '留在当前',
+      maskClosable: false,
       onPositiveClick() {
         // TODO: 跳转登录页
       },
@@ -71,7 +72,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    const { status: code, message: msg } = error;
+    const { status: code, message: msg } = error.toJSON();
     try {
       statusCodeHandle(code, msg);
       return Promise.reject(error);
