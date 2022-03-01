@@ -23,6 +23,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {
