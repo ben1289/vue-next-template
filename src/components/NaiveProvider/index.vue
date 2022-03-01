@@ -15,14 +15,6 @@
 </template>
 
 <script setup lang="ts" name="NaiveProvider">
-import {
-  NConfigProvider,
-  NGlobalStyle,
-  NLoadingBarProvider,
-  NDialogProvider,
-  NNotificationProvider,
-  NMessageProvider,
-} from 'naive-ui';
 import NaiveProviderContent from './components/NaiveProviderContent.vue';
 </script>
 
